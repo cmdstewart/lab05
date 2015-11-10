@@ -1,0 +1,184 @@
+/**
+*Program Name: cis25Laney2015ColeStewartLab5.cpp
+*Discussion: Lab 5
+*Written by: Cole Stewart
+*Date: 2015/11/5
+*/
+
+#include <iostream>
+#include <string>
+#include "fraction.h"
+using namespace std;
+
+void prntClassInformation(void);
+void menuMain(void);
+void init(int, int, FractionColeS**);
+
+int main() {
+	prntClassInformation();
+	menuMain();
+
+	return 0;
+}
+
+void prntClassInformation() {
+	cout << "CIS 25 C++ Programming\n"
+		<< "Laney College\n"
+		<< "Cole Stewart\n" << endl
+		<< "Assignment Information --\n"
+		<< "  Assignment Number:  Lab 05\n"
+		<< "                      Coding Assignment -- Exercise #1\n"
+		<< "  Written by:         Cole Stewart\n"
+		<< "  Due Date:           2015/11/10\n" << endl;
+}
+
+void menuMain() {
+	int menuChoose;
+	int num, denom;
+	FractionColeS* frac1 = nullptr;
+	FractionColeS* frac2 = nullptr;
+	FractionColeS* frac3 = nullptr;
+
+	do {
+		cout << "*********************\n"
+			<< "*        MENU       *\n"
+			<< "*                   *\n"
+			<< "*  1. Initializing  *\n"
+			<< "*  2. Adding        *\n"
+			<< "*  3. Subtracting   *\n"
+			<< "*  4. Multiplying   *\n"
+			<< "*  5. Dividing      *\n"
+			<< "*  6. Printing      *\n"
+			<< "*  7. Quit          *\n"
+			<< "*********************\n"
+			<< "Enter your option (use integer value only): ";
+		cin >> menuChoose;
+		cout << endl;
+
+		switch (menuChoose) {
+		case 1:
+			do {
+				cout << "  Initializing Option --\n\n"
+					<< "  *********************************\n"
+					<< "  *      INITIALIZING MENU        *\n"
+					<< "  *                               *\n"
+					<< "  *  1. Set 1                     *\n"
+					<< "  *  2. Set 2                     *\n"
+					<< "  *  3. Set Both                  *\n"
+					<< "  *  4. Return to Previous Menu   *\n"
+					<< "  *********************************\n"
+					<< "  Enter your option (use integer value only): ";
+				cin >> menuChoose;
+				switch (menuChoose) {
+				case 1:  cout << "\n  Set Fraction One --\n"
+					<< "    Enter numerator: ";
+					cin >> num;
+					cout << "    Enter Denominator: ";
+					cin >> denom;
+					init(num, denom, &frac1);
+					cout << "\n    Fraction One: " << *frac1 << "\n\n";
+					break;
+				case 2:  cout << "\n  Set Fraction Two --\n"
+					<< "    Enter numerator: ";
+					cin >> num;
+					cout << "    Enter Denominator: ";
+					cin >> denom;
+					init(num, denom, &frac2);
+					cout << "\n    Fraction Two: " << *frac2 << "\n\n";
+					break;
+				case 3:  cout << "\n  Set Fraction One --\n"
+					<< "    Enter numerator: ";
+					cin >> num;
+					cout << "    Enter Denominator: ";
+					cin >> denom;
+					init(num, denom, &frac1);
+					cout << "\n  Set Fraction Two --\n"
+						<< "    Enter numerator: ";
+					cin >> num;
+					cout << "    Enter Denominator: ";
+					cin >> denom;
+					init(num, denom, &frac2);
+					cout << "\n    Fraction One: " << *frac1 << "\n"
+						<< "    Fraction Two: " << *frac2 << "\n\n";
+					break;
+				case 4:
+					break;
+				default: cout << "\n\nWRONG OPTION ...";
+					break;
+				}
+			} while (menuChoose != 4);
+				break;
+		case 2: 
+			if (frac1 == nullptr || frac2 == nullptr) {
+				cout << "\n\nYou must initialize the fractions first!\n";
+				break;
+			} else { 
+				do {
+					cout << "  Adding Option --\n\n"
+						<< "  *********************************\n"
+						<< "  *          ADDING MENU          *\n"
+						<< "  *                               *\n"
+						<< "  *  1. add() - Member            *\n"
+						<< "  *  2. add() - Stand Alone       *\n"
+						<< "  *  3. operator+() - Member      *\n"
+						<< "  *  4. Return to Previous Menu   *\n"
+						<< "  *********************************\n"
+						<< "  Enter your option (use integer value only): ";
+					cin >> menuChoose;
+					switch (menuChoose) {
+					case 1:  cout << "\n    Calling member add()\n";
+						*frac3 = (*frac1).add(*frac2);
+						(*frac3).print();
+						break;
+					case 2:  cout << "\n  Set Fraction Two --\n"
+						<< "    Enter numerator: ";
+						cin >> num;
+						cout << "    Enter Denominator: ";
+						cin >> denom;
+						init(num, denom, &frac2);
+						cout << "\n    Fraction Two: " << *frac2 << "\n\n";
+						break;
+					case 3:  cout << "\n  Set Fraction One --\n"
+						<< "    Enter numerator: ";
+						cin >> num;
+						cout << "    Enter Denominator: ";
+						cin >> denom;
+						init(num, denom, &frac1);
+						cout << "\n  Set Fraction Two --\n"
+							<< "    Enter numerator: ";
+						cin >> num;
+						cout << "    Enter Denominator: ";
+						cin >> denom;
+						init(num, denom, &frac2);
+						cout << "\n    Fraction One: " << *frac1 << "\n"
+							<< "    Fraction Two: " << *frac2 << "\n\n";
+						break;
+					default: cout << "WRONG OPTION ...";
+						break;
+					}
+				} while (menuChoose != 4);
+			}
+			break;
+		case 6: cout << "  Printing Option --\n\n";
+		default: cout << "WRONG OPTION ...";
+			break;
+		}
+	} while (menuChoose != 7);
+}
+
+void init(int n, int d, FractionColeS** frac) {
+	if (*frac == nullptr) {
+		*frac = new FractionColeS(n, d);
+	}
+	else {
+		delete *frac;
+		*frac = new FractionColeS(n, d);
+	}
+}
+
+/* Program Output
+
+*/
+
+/* COMMENTS ON Code/Output
+Some Comment */
